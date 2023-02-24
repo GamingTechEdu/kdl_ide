@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:coocree_select_simuc/components/menu_item_config.dart';
+import 'package:coocree_select_simuc/components/kdldropdown/menu_item_config.dart';
 
 typedef OnSelectedValues = void Function(String simcon, String type);
 
@@ -22,7 +22,6 @@ class SimconSelectIncludeType extends StatefulWidget {
 }
 
 class _SimconSelectIncludeTypeState extends State<SimconSelectIncludeType> {
-  bool radioEnable = false;
   String simcon = "";
   Widget _buildSelectSimcon() {
     List<DropdownMenuItem<dynamic>>? listMenuItem = [];
@@ -34,35 +33,37 @@ class _SimconSelectIncludeTypeState extends State<SimconSelectIncludeType> {
       );
     }
 
-    return Padding(
-      padding: widget.padding,
-      child: DropdownButtonFormField(
-        style: TextStyle(fontSize: 15),
-        elevation: 0,
-        icon: const Icon(Icons.keyboard_arrow_down_outlined),
-        focusColor: Colors.transparent,
-        decoration: InputDecoration(
-            labelStyle: TextStyle(color: Colors.black, fontSize: 25),
-            floatingLabelBehavior: FloatingLabelBehavior.always,
-            focusedBorder: OutlineInputBorder(
-                borderSide:
-                    BorderSide(width: 3, color: Colors.grey.withOpacity(0.5)),
-                borderRadius: BorderRadius.circular(10)),
-            labelText: widget.label,
-            enabledBorder: OutlineInputBorder(
-                borderSide:
-                    BorderSide(width: 1.5, color: Colors.grey.withOpacity(0.5)),
-                borderRadius: BorderRadius.circular(10)),
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
-        isExpanded: true,
-        items: listMenuItem,
-        value: null,
-        onChanged: (v) {
-          simcon = v;
-          setState(() {
-            radioEnable = (v != null);
-          });
-        },
+    return Container(
+      height: 70,
+      child: Padding(
+        padding: widget.padding,
+        child: DropdownButtonFormField(
+          style: TextStyle(fontSize: 15),
+          elevation: 0,
+          icon: const Icon(Icons.keyboard_arrow_down_outlined),
+          focusColor: Colors.transparent,
+          decoration: InputDecoration(
+              labelStyle: TextStyle(color: Colors.black, fontSize: 25),
+              floatingLabelBehavior: FloatingLabelBehavior.always,
+              focusedBorder: OutlineInputBorder(
+                  borderSide:
+                      BorderSide(width: 3, color: Colors.grey.withOpacity(0.5)),
+                  borderRadius: BorderRadius.circular(10)),
+              labelText: widget.label,
+              enabledBorder: OutlineInputBorder(
+                  borderSide:
+                      BorderSide(width: 1.5, color: Colors.grey.withOpacity(0.5)),
+                  borderRadius: BorderRadius.circular(10)),
+              border: OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          isExpanded: true,
+          items: listMenuItem,
+          value: null,
+          onChanged: (v) {
+            simcon = v;
+            setState(() {
+            });
+          },
+        ),
       ),
     );
   }
