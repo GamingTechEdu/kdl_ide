@@ -12,18 +12,26 @@ class SimucFixDrawer extends StatefulWidget {
 
 
 class _SimucFixDrawerState extends State<SimucFixDrawer> {
+
   @override
   Widget build(BuildContext context) {
-    return
-      SizedBox(
-        height: 600,
+    return SizedBox(
+        height: MediaQuery.of(context).size.height,
         child: Form(
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
             child: ListView(
               children: [
+                KdlTextField(
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly,
+                    LengthLimitingTextInputFormatter(10),
+                  ],
+                  label: Text('Número do Componente',
+                      style: TextStyle(color: Colors.black, fontSize: 25)),
+                ),
                 SimconSelectIncludeType(
-                  label: 'Selecione o Documento',
+                  label: 'Documento',
                   simcons: [
                     MenuItemConfig(label: "Danfe", value: "Simuc"),
                     MenuItemConfig(label: "Carta", value: "Simcon"),
@@ -35,26 +43,15 @@ class _SimucFixDrawerState extends State<SimucFixDrawer> {
                   },
                 ),
                 const KdlTextField(
-                  label: Text('Número do Documento',
+                  label: const Text('Número do Documento',
                       style: TextStyle(color: Colors.black, fontSize: 25)),
                 ),
-                SimconSelectIncludeType(
-                  label: 'Tipo de Componente',
-                  simcons: [
-                    MenuItemConfig(label: "Simuc", value: "Simuc"),
-                    MenuItemConfig(label: "Simcon", value: "Simcon"),
-                    MenuItemConfig(label: "Luminária", value: "Luminária"),
-                  ],
-                  onSelected: (value, type) {
-                    print("AAA-->> $value ---> $type");
-                  },
-                ),
-                KdlTextField(
-                  inputFormatters: [
-                    FilteringTextInputFormatter.digitsOnly,
-                    LengthLimitingTextInputFormatter(10),
-                  ],
-                  label: const Text('Número do Componente',
+                 KdlTextField(
+                   inputFormatters: [
+                     FilteringTextInputFormatter.allow(RegExp(r'[0-9/]')),
+                     LengthLimitingTextInputFormatter(10),
+                   ],
+                  label: const Text('Data de Cadastro',
                       style: TextStyle(color: Colors.black, fontSize: 25)),
                 ),
                 SimconSelectIncludeType(
@@ -84,6 +81,18 @@ class _SimucFixDrawerState extends State<SimucFixDrawer> {
                 ),
                 const KdlTextField(
                   label: Text('Observações',
+                      style: TextStyle(color: Colors.black, fontSize: 25)),
+                ),
+                 KdlTextField(
+                   inputFormatters: [
+                     FilteringTextInputFormatter.allow(RegExp(r'[0-9/]')),
+                     LengthLimitingTextInputFormatter(10),
+                   ],
+                  label: const Text('Data de Avaliação',
+                      style: TextStyle(color: Colors.black, fontSize: 25)),
+                ),
+                const KdlTextField(
+                  label: const Text('Avaliador',
                       style: TextStyle(color: Colors.black, fontSize: 25)),
                 ),
                 Container(

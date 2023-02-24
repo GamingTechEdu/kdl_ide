@@ -34,7 +34,7 @@ class _SimconSelectIncludeTypeState extends State<SimconSelectIncludeType> {
     }
 
     return Container(
-      height: 70,
+      height: 67,
       child: Padding(
         padding: widget.padding,
         child: DropdownButtonFormField(

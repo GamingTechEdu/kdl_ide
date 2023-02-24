@@ -1,30 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:coocree_select_simuc/package.dart';
 
-class NavigationrailKdl extends StatefulWidget {
+class NavigationRailKdl extends StatefulWidget {
+  final List<NavigationRailDestination> destinations;
+
+  const NavigationRailKdl({super.key, required this.destinations});
+
   @override
-  _NavigationrailKdlState createState() => _NavigationrailKdlState();
+  _NavigationRailKdlState createState() => _NavigationRailKdlState();
 }
 
-
-class _NavigationrailKdlState extends State<NavigationrailKdl> {
-
+class _NavigationRailKdlState extends State<NavigationRailKdl> {
   int _selectedIndex = 0;
-   bool _isMenuOpen = false;
-   double _menuWidth = 350.0;
+  bool _isMenuOpen = false;
+  final double _menuWidth = 350.0;
 
+  final List<Widget> _menuWidgets = [
+    const SimucIncludeDrawer(),
+    const SimucFixDrawer(),
+  ];
 
   Widget _buildMenu(int index) {
     return Container(
-        width: _menuWidth,
-        color: Colors.grey[100],
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            SimucFixDrawer(),
-          ],
-        ),
-      );
+      width: _menuWidth,
+      color: Colors.grey[200],
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: <Widget>[
+          _menuWidgets[index],
+        ],
+      ),
+    );
+  }
+
+  void abreFecha(int index){
+    setState(() {
+      _selectedIndex = index;
+      _isMenuOpen = !_isMenuOpen;
+    });
   }
 
   @override
@@ -34,49 +47,32 @@ class _NavigationrailKdlState extends State<NavigationrailKdl> {
         children: <Widget>[
           NavigationRail(
             selectedIndex: _selectedIndex,
-            onDestinationSelected: (int index) {
-              setState(() {
-                _selectedIndex = index;
-                if(_selectedIndex == 0){
-                  _isMenuOpen = !_isMenuOpen;
-                }
-              });
-            },
-            destinations: const [
-              NavigationRailDestination(
-                icon: Icon(Icons.add_circle),
-                label: Text('Cadastrar'),
-              ),
-              NavigationRailDestination(
-                icon: Icon(Icons.adjust),
-                label: Text('Manutenção'),
-              ),
-            ],
+            onDestinationSelected: abreFecha,
+            destinations: widget.destinations,
           ),
           _isMenuOpen
-            ? Expanded(
-              child: Stack(
-              children: <Widget>[
-                Container(
-                  color: Colors.white,
-                ),
-                Positioned(
-                  top: 0,
-                  bottom: 0,
-                  left: 0,
-                  child: AnimatedContainer(
-                    duration: Duration(milliseconds: 200),
-                    width: _isMenuOpen ? _menuWidth : 0,
-                    child: _buildMenu(_selectedIndex),
+              ? Expanded(
+                  child: Stack(
+                    children: <Widget>[
+                      Container(
+                        color: Colors.white,
+                      ),
+                      Positioned(
+                        top: 0,
+                        bottom: 0,
+                        left: 0,
+                        child: AnimatedContainer(
+                          duration: Duration(milliseconds: 200),
+                          width: _isMenuOpen ? _menuWidth : 0,
+                          child: _buildMenu(_selectedIndex),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-              ],
-            ),
-          )
-            : SizedBox.shrink(),
+                )
+              : SizedBox.shrink(),
         ],
       ),
     );
   }
 }
-
