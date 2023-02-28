@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
 
-      home: const NavigationRailKdl(
+      home: NavigationRailKdl(
         destinations: [
           NavigationRailDestination(
             icon: Icon(Icons.add_circle),
@@ -26,7 +26,6 @@ class MyApp extends StatelessWidget {
             label: Text('Manutenção'),
           ),
         ],
-
       ),
     );
   }

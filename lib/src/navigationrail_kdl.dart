@@ -3,8 +3,9 @@ import 'package:coocree_select_simuc/package.dart';
 
 class NavigationRailKdl extends StatefulWidget {
   final List<NavigationRailDestination> destinations;
+  final User user;
 
-  const NavigationRailKdl({super.key, required this.destinations});
+  const NavigationRailKdl({super.key, required this.destinations, required this.user});
 
   @override
   _NavigationRailKdlState createState() => _NavigationRailKdlState();
@@ -15,10 +16,6 @@ class _NavigationRailKdlState extends State<NavigationRailKdl> {
   bool _isMenuOpen = false;
   final double _menuWidth = 350.0;
 
-  final List<Widget> _menuWidgets = [
-    const SimucIncludeDrawer(),
-    const SimucFixDrawer(),
-  ];
 
   Widget _buildMenu(int index) {
     return Container(
@@ -27,7 +24,7 @@ class _NavigationRailKdlState extends State<NavigationRailKdl> {
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          _menuWidgets[index],
+          menuWidgets[index],
         ],
       ),
     );
@@ -50,8 +47,7 @@ class _NavigationRailKdlState extends State<NavigationRailKdl> {
             onDestinationSelected: abreFecha,
             destinations: widget.destinations,
           ),
-          _isMenuOpen
-              ? Expanded(
+          _isMenuOpen ? Expanded(
                   child: Stack(
                     children: <Widget>[
                       Container(
@@ -69,8 +65,7 @@ class _NavigationRailKdlState extends State<NavigationRailKdl> {
                       ),
                     ],
                   ),
-                )
-              : SizedBox.shrink(),
+                ) : const SizedBox.shrink(),
         ],
       ),
     );
